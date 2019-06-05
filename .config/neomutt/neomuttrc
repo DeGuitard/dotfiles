@@ -1,0 +1,43 @@
+## IMAP configuration
+set imap_check_subscribed
+unset imap_passive
+unset imap_idle
+set imap_keepalive = 300
+set mail_check = 90
+set timeout = 15
+
+# SMTP configuration
+set record = +SENT
+
+set header_cache = ~/.cache/neomutt/header
+set message_cachedir = ~/.cache/neomutt/message
+
+## LAIN
+source ~/.config/neomutt/lain
+folder-hook $folder 'source ~/.config/neomutt/lain'
+
+## VIANNEY
+folder-hook $folder 'source ~/.config/neomutt/vianney'
+
+## WIRED
+folder-hook $folder 'source ~/.config/neomutt/wired'
+
+## Shortcuts
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry
+bind pager j next-line
+bind pager k previous-line
+macro attach 'V' '<pipe-entry>cat > ~/.cache/neomutt/mail.html && firefox ~/.cache/neomutt/mail.html<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/lain<enter><change-folder>!<enter>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/wired<enter><change-folder>!<enter>'
+macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.config/neomutt/vianney<enter><change-folder>!<enter>'
+
+## HTML viewer
+set mailcap_path = ~/.config/neomutt/mailcap
+auto_view text/html
+alternative_order text/plain text/html
+
+## Notifications
+set new_mail_command="notify-send 'New Email' ' - %n new messages, %u unread.' &"
