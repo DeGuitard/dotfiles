@@ -1,34 +1,72 @@
 [user]
-	name = Vianney Dupoy de Guitard
-	email = vianney@n4v1.com
-
-[alias]
-	lg = log --pretty=oneline --graph --abbrev-commit
-	st = status -s
-	co = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
-	cm = commit
-	tags = tag -l
-	branches = branch -a
-	remotes = remote -v
-	reb = "!r() { git rebase -i HEAD~$1; }; r"
-
-[help]
-	autocorrect = 1
+    name = Vianney Dupoy de Guitard    
+    email = vianney@n4v1.com
 
 [push]
 	default = simple
 	followTags = true
 
+[push]
+	default = simple
+
 [core]
+	trustctime = false
+	editor = vim
+	filemode = false
+	autocrlf = input
+    safecrlf = false
 	pager = diff-so-fancy | less --tabs=4 -RFX
+
+[credential]
+	helper = cache --timeout=3600
+
+[merge]
+	tool = vimdiff
+
+[mergetool]
+	keeptemporaries = false
+	keepbackups = false
+	prompt = false
+	trustexitcode = false
+	keepBackup = false
+
+[alias]
+	last = log -1 --stat
+	cp = cherry-pick
+	co = checkout
+	cl = clone
+	cm = commit
+	st = status -sb
+	br = branch
+	unstage = reset HEAD --
+	dc = diff --cached
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all
+    dfw = diff --ignore-space-change
+[log]
+	abbrevCommit = true
+
+[format]
+	pretty = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
+
+[url "https://github.com/"]
+	insteadOf = git://github.com/
 
 [color]
 	ui = true
 
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+
 [color "diff"]
-	meta = "yellow"
-	frag = "magenta bold"
-	commit = "yellow bold"
-	old = "red bold"
-	new = "green bold"
-	whitespace = "red reverse"
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[diff-so-fancy]
+	stripLeadingSymbols = true
