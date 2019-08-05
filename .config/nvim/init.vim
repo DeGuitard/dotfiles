@@ -44,12 +44,15 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'carlitux/deoplete-ternjs', { 'do': 'sudo npm install -g tern' }
 Plug 'mxw/vim-jsx'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 call plug#end()
 
 """"""""""""""""""""""""""""""
 " → ALE
 """"""""""""""""""""""""""""""
 let g:ale_fixers = ['prettier', 'eslint']
+let g:ale_linters = {'rust': ['rls']}
 let g:ale_fix_on_save = 1
 
 
@@ -68,6 +71,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#ternjs#tern_bin = '/usr/bin/tern'
 let g:deoplete#sources#ternjs#timeout = 1
 let g:deoplete#sources#ternjs#types = 1
+call deoplete#custom#source('buffer', 'min_pattern_length', 0)
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 
@@ -118,6 +122,22 @@ let g:tern#arguments = ["--persistent"]
 nmap <leader>d :TernDef<enter>
 nmap <C-x><C-g> :TernRefs<enter>
 nmap <C-x><C-r> :TernRename<enter>
+
+
+""""""""""""""""""""""""""""""
+" → vim-racer
+""""""""""""""""""""""""""""""
+let g:rustfmt_autosave = 1
+let g:rust_fold = 1
+
+
+""""""""""""""""""""""""""""""
+" → vim-racer
+""""""""""""""""""""""""""""""
+set hidden
+let g:racer_cmd = "/home/lain/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+
 
 """"""""""""""""""""""""""""""
 " → Identation and folding settings
