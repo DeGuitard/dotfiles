@@ -26,34 +26,71 @@ map <silent> <leader><cr> :noh<cr>
 map <leader>tn :tabnew<cr>
 map <leader>tc :tabclose<cr>
 
+" Indent cofiguration
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Elixir shortcuts
+augroup elixir
+    autocmd FileType elixir nnoremap <c-k> :ALEGoToDefinition<cr>
+augroup END
 
 """"""""""""""""""""""""""""""
 " → Plugin installation
 """"""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
+" File search / management
 Plug 'scrooloose/nerdtree'
-Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/bufexplorer.zip'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+
+" Misc
 Plug 'terryma/vim-expand-region'
-Plug 'w0rp/ale'
 Plug 'itchyny/lightline.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'pangloss/vim-javascript'
 Plug 'maxbrunsfeld/vim-yankstack'
+
+" Linting / Formatting
+Plug 'w0rp/ale'
+
+" Autocompletion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+" JS
+Plug 'pangloss/vim-javascript'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'carlitux/deoplete-ternjs', { 'do': 'sudo npm install -g tern' }
 Plug 'mxw/vim-jsx'
+
+" Rust
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+
+" Python
+Plug 'deoplete-plugins/deoplete-jedi'
+
+" Elixir
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 call plug#end()
 
 """"""""""""""""""""""""""""""
 " → ALE
 """"""""""""""""""""""""""""""
-let g:ale_fixers = ['prettier', 'eslint']
-let g:ale_linters = {'rust': ['rls']}
+let g:ale_linters = {}
+let g:ale_linters.elixir = ['elixir-ls']
+let g:ale_linters.rust = ['rls']
+let g:ale_linters.python = ['flake8']
+
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = ['prettier', 'eslint']
+let g:ale_fixers.python = ['autopep8', 'yapf']
+let g:ale_fixers.elixir = ['mix_format']
 let g:ale_fix_on_save = 1
+
+let g:ale_elixir_elixir_ls_release = '/home/lain/dev/elixir-ls/rel'
 
 
 """"""""""""""""""""""""""""""
@@ -71,8 +108,18 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#ternjs#tern_bin = '/usr/bin/tern'
 let g:deoplete#sources#ternjs#timeout = 1
 let g:deoplete#sources#ternjs#types = 1
-call deoplete#custom#source('buffer', 'min_pattern_length', 0)
+" call deoplete#custom#source('buffer', 'min_pattern_length', 0)
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+
+""""""""""""""""""""""""""""""
+" → Neosnippet
+""""""""""""""""""""""""""""""
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? 
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 
 """"""""""""""""""""""""""""""
