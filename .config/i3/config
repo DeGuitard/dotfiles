@@ -15,7 +15,7 @@
 new_window 1pixel
 font pango:SFNS Display 10
 
-default_border pixel 2
+default_border pixel 0
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -26,6 +26,8 @@ default_border pixel 2
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn't scale on retina/hidpi displays.
+
+set $mod Mod3
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -105,16 +107,16 @@ bindsym Mod4+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: "
-set $ws2 "2: "
-set $ws3 "3: "
-set $ws4 "4: "
-set $ws5 "5: "
-set $ws6 "6: "
-set $ws7 "7: "
-set $ws8 "8: "
-set $ws9 "9: "
-set $ws10 "10: "
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
 bindsym Mod4+1 workspace $ws1
@@ -142,8 +144,8 @@ bindsym Mod4+Shift+0 move container to workspace $ws10
 
 # Always start some apps in some workspaces
 for_window [class="Spotify"]  move container to workspace $ws10
-for_window [class="FreeTube"] move container to workspace $ws2
 for_window [class="firefox"]  move container to workspace $ws1
+for_window [class="jetbrains-idea"]  move container to workspace $ws2
 
 # reload the configuration file
 bindsym Mod4+Shift+c reload
@@ -179,17 +181,17 @@ mode "resize" {
 
 bindsym Mod4+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
-	font pango:Hack, FontAwesome 9
-	position top
-        status_command /usr/bin/i3status-rs ~/.config/i3/status.toml
+    i3bar_command ~/.config/polybar/launch.sh
 }
 
 # Cosmetic settings, gaps & background
-gaps inner 5
+gaps inner 8
 exec_always feh --bg-fill ~/pics/bg
 
 # Firefox shortcut
 bindsym Mod4+w exec firefox
+
+# Screenshot shortcuts
+bindsym Print exec scrot -s $HOME/Images/ScreenShoots/`date +%Y-%m-%d_%H:%M:%S`.png
+bindsym Mod1+Print exec scrot $HOME/Images/`date +%Y-%m-%d_%H:%M:%S`.png
