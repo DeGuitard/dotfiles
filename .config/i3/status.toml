@@ -14,41 +14,37 @@ buttons = ["play", "next"]
 
 [[block]]
 block = "sound"
-name = "PCM"
-driver = "alsa"
 step_width = 3
 
-# [[block]]
-# block = "net"
-# device = "enp0s31f6"
-# speed_up = true
-# speed_down = true
-# interval = 1
+[[block]]
+block = "bluetooth"
+mac = "F8:DF:15:25:12:5B"
 
 [[block]]
 block = "disk_space"
 path = "/"
-alias = "/"
 info_type = "used"
-show_percentage = true
-unit = "Percent"
-interval = 20
+format = "{icon} / {percentage}"
 warning = 75
 alert = 90
 
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{Mup}%"
-format_swap = "{SUp}%"
+format_mem = "{mem_total_used_percents}"
 
 [[block]]
 block = "cpu"
 interval = 1
 
 [[block]]
-block = "pacman"
-interval = 10
+block = "pomodoro"
+length = 25
+break_length = 5
+message = "Take a break!"
+break_message = "Back to work!"
+use_nag = true
+nag_path = "i3-nagbar"
 
 [[block]]
 block = "time"
