@@ -10,8 +10,12 @@
     ui = true
 [credential]
     helper = cache --timeout=3600
+[diff]
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [merge]
-    tool = vimdiff
+    tool = nvimdiff
 [mergetool]
     keeptemporaries = false
     keepbackups = false
@@ -32,11 +36,11 @@
     dfw = diff --ignore-space-change
 [user]
     name = Vianney Dupoy de Guitard
-    email = vianney@n4v1.com
+    email = vianney@djamo.io
 [log]
     abbrevCommit = true
 [format]
-    pretty = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
+    pretty = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset
 
 [pager]
     diff = delta
@@ -63,3 +67,5 @@
     hunk-header-file-style = red
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file line-number syntax
+[rerere]
+	enabled = true
